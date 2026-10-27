@@ -180,6 +180,11 @@ def test_findings_are_immutable(direct_vm, direct_deploy):
         gate.assess("b", "a")
 
 
+def test_config_reports_the_deployed_thresholds(direct_vm, direct_deploy):
+    gate = _gate(direct_deploy, bp=2500, run=14)
+    assert gate.config() == "2500|14"
+
+
 def test_gate_fails_closed_before_any_assessment(direct_vm, direct_deploy):
     gate = _gate(direct_deploy)
     gate.register_work("a", "Original grant proposal", REFERENCE)
