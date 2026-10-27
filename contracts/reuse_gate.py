@@ -169,6 +169,11 @@ class ReuseGate(gl.Contract):
     def is_registered(self, work_id: str) -> bool:
         return work_id in self.work_owner
 
+    @gl.public.view
+    def config(self) -> str:
+        """Expose the deployed thresholds so a reader never has to trust a README."""
+        return str(int(self.copy_bp)) + "|" + str(int(self.copy_run))
+
     # ----------------------------------------------------------- adjudication
     @gl.public.write
     def assess(self, work_id: str, reference_id: str) -> str:
